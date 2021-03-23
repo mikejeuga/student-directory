@@ -1,5 +1,4 @@
 # let's put all the students into an array.
-
 # and print them
 def print_header
   puts "The students of my cohort at Makers"
@@ -13,12 +12,17 @@ def print(names)
 end
 
 def conditional_print(students)
-  select_a_letter = gets.chomp
-  students.each { |student|
-    if student[:name][0] == select_a_letter and student[:name].length <= 12
-      puts "#{student[:name]}"
-    end
-  }
+  #   select_a_letter = gets.chomp
+  #   students.each { |student|
+  #     if student[:name][0] == select_a_letter and student[:name].length <= 12
+  #       puts "#{student[:name]}"
+  #     end
+  #   }
+  i = 0
+  while i < students.length
+    puts students[i][:name]
+    i += 1
+  end
 end
 
 # finally, we print the total number of students.
