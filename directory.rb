@@ -2,12 +2,12 @@
 # and print them
 def print_header
   puts "The students of my cohort at Makers"
-  puts "-------------"
 end
 
 def print(names)
-  names.each { |name|
-    puts "#{names.index(name) + 1}. #{name[:name]} (#{name[:cohort]} cohort)"
+  names.map { |name|
+    puts "#{names.index(name) + 1}. #{name[:name]} enrolled in the (#{name[:cohort]} cohort) was born on #{name[:dob]}.
+#{name[:name]}'s height is #{name[:size]}cm and loves to do some #{name[:hobby]}."
   }
 end
 
@@ -31,18 +31,32 @@ def print_footer(names)
 end
 
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  #create an empty array
   students = []
-  # get the first name
+
+  puts "Please enter the names of the students"
   name = gets.chomp
-  #while the name is not empty, repeat this code
+  puts "When was the student born?"
+  dob = gets.chomp
+  puts "How tall is the student ?"
+  size = gets.chomp
+  puts "Does the student have any hobby?"
+  hobby = gets.chomp
+
+  puts "To finish, just hit return twice"
   while !name.empty?
-    students << { name: name, cohort: :november }
+    students << { name: name, cohort: :March, dob: dob, size: size, hobby: hobby }
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
+    if name.empty?
+      break
+    end
+    puts "When was the student born?"
+    dob = gets.chomp
+    puts "How tall is the student ?"
+    size = gets.chomp
+    puts "Does the student have any hobby?"
+    hobby = gets.chomp
   end
   students
 end
@@ -50,5 +64,4 @@ end
 students = input_students
 print_header()
 print(students)
-conditional_print(students)
 print_footer(students)
