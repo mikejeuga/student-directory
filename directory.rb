@@ -5,6 +5,9 @@ def print_header
 end
 
 def print(names)
+  if names.length == 0
+    return
+  end
   names.map { |name|
     puts "#{names.index(name) + 1}. #{name[:name]} enrolled in the (#{name[:cohort]} cohort) was born on #{name[:dob]}.
 #{name[:name]}'s height is #{name[:size]}cm and loves to do some #{name[:hobby]}."
@@ -35,6 +38,9 @@ def input_students
 
   puts "Please enter the names of the students"
   name = gets.chomp
+  if name.empty?
+    return students
+  end
   puts "When was the student born?"
   dob = gets.chomp
   puts "How tall is the student ?"
