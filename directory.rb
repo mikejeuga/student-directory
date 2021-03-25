@@ -1,5 +1,7 @@
 # let's put all the students into an array.
 # and print them
+@students = []
+
 def print_header
   puts "The students of my cohort at Makers"
 end
@@ -75,27 +77,35 @@ def input_students
   students
 end
 
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_student(students)
+  print_header()
+  print(students)
+  print_footer(students)
+end
+
+def process(selection)
+  case selection
+  when "1"
+    students = input_students
+  when "2"
+    show_student(students)
+  when "9"
+    exit
+  else
+    puts "I don't know what you meant, try again."
+  end
+end
+
 def interactive_menu
-  students = []
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-
-    selection = gets.chomp
-
-    case selection
-    when "1"
-      students = input_students
-    when "2"
-      print_header()
-      print(students)
-      print_footer(students)
-    when "9"
-      exit
-    else
-      puts "I don't know what you meant, try again."
-    end
+    print_menu()
+    process(gets.chomp)
   end
 end
 
