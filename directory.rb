@@ -36,9 +36,11 @@ def input_students
 
   puts "Please enter the names of the students"
   name = gets.chomp
+
   if name.empty?
     return students
   end
+
   puts "Which cohort was the student part of?"
   cohort = gets.chomp
   cohort.empty? ? cohort = "March".to_sym : (months.include?(cohort.capitalize) ? cohort.to_sym : cohort = gets.chomp)
@@ -55,9 +57,11 @@ def input_students
     puts students.count > 1 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
     #get another name from the user
     name = gets.chomp
+
     if name.empty?
       break
     end
+
     puts "Which cohort was the student part of?"
     cohort = gets.sub("\n", "")
     cohort.empty? ? cohort = "March".to_sym : (months.include?(cohort.capitalize) ? cohort.to_sym : cohort = gets.chomp)
@@ -71,7 +75,28 @@ def input_students
   students
 end
 
-students = input_students
-print_header()
-print(students)
-print_footer(students)
+def interactive_menu
+  students = []
+  loop do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+
+    selection = gets.chomp
+
+    case selection
+    when "1"
+      students = input_students
+    when "2"
+      print_header()
+      print(students)
+      print_footer(students)
+    when "9"
+      exit
+    else
+      puts "I don't know what you meant, try again."
+    end
+  end
+end
+
+interactive_menu()
