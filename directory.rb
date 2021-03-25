@@ -37,7 +37,7 @@ def input_students
             "July", "August", "September", "October", "November", "December"]
 
   puts "Please enter the names of the students"
-  name = gets.chomp
+  name = STDIN.gets.chomp
 
   if name.empty?
     return students
@@ -58,7 +58,7 @@ def input_students
     students << { name: name, cohort: cohort, dob: dob, size: size, hobby: hobby }
     puts students.count > 1 ? "Now we have #{students.count} students" : "Now we have #{students.count} student"
     #get another name from the user
-    name = gets.chomp
+    name = STDIN.gets.chomp
 
     if name.empty?
       break
@@ -81,6 +81,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit"
 end
 
@@ -108,7 +109,7 @@ end
 def interactive_menu
   loop do
     print_menu()
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -121,6 +122,27 @@ def save_students
     file.puts csv_line
   }
   file.close
+end
+
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
+  file.readLines.each { |line|
+    name, cohort = line.chomp.split(",")
+    @students << { name: name, cohort: cohort.to_sym }
+  }
+  file.close
+end
+
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
 end
 
 interactive_menu()
